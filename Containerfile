@@ -14,4 +14,5 @@ bind-utils \
 blktrace \
 conntrack \
 perf \
+tar \
 && rm -Rf /var/cache/yum

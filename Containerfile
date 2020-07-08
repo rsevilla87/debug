@@ -15,4 +15,5 @@ blktrace \
 conntrack \
 perf \
 tar \
+nload \
 && rm -Rf /var/cache/yum

@@ -1,8 +1,8 @@
 # Using bcc-tools on a RHCOS system
 
-Log in to the node.
+Log in to the node using the debug image.
 ```
-oc debug node/<nodeName> --image=quay.rsevilla/debug
+oc debug node/<nodeName> --image=quay.io/rsevilla/debug
 ```
 
 And then create a couple of symlinks to the kernel-headers directory.
@@ -20,3 +20,31 @@ runc             944428 944427   0 /usr/bin/runc --root=/run/runc exec --pid-fil
 exe              944436 944428   0 /proc/self/exe init
 ```
 
+# Using bpftrace on a RHCOS system
+
+Mount debugfs filesystem.
+```
+sh-5.0# mount -t debugfs none /sys/kernel/debug/
+sh-5.0# bpftrace -l kprobe* | head
+kprobe:trace_initcall_finish_cb
+kprobe:initcall_blacklisted
+kprobe:do_one_initcall
+kprobe:trace_initcall_start_cb
+kprobe:run_init_process
+kprobe:try_to_run_init_process
+kprobe:match_dev_by_uuid
+kprobe:rootfs_mount
+kprobe:name_to_dev_t
+kprobe:bstat
+```
+
+Note: Some RHCOS builds are missing the kernel-devel package. This leads to the following error:
+
+```
+sh-5.0# bpftrace -e 'tracepoint:syscalls:sys_exit_mkdir{printf("Hello world"); }'
+/bpftrace/include/clang_workarounds.h:14:10: fatal error: 'linux/types.h' file not found
+
+```
+
+I haven't found an easy fix for it, ideas are appreciated.
+ 

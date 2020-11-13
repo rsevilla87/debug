@@ -1,7 +1,7 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest
 
 RUN microdnf install iproute \
-vim \
+vim-minimal \
 procps-ng \
 net-tools \
 ethtool \

@@ -17,4 +17,5 @@ conntrack \
 perf \
 tar \
 nload \
+dstat \
 && rm -Rf /var/cache/yum

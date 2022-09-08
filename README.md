@@ -23,7 +23,7 @@ exe              944436 944428   0 /proc/self/exe init
 # Using bpftrace on a RHCOS system
 
 Mount debugfs filesystem.
-```
+```bash
 sh-5.0# mount -t debugfs none /sys/kernel/debug/
 sh-5.0# bpftrace -l kprobe* | head
 kprobe:trace_initcall_finish_cb
@@ -37,14 +37,3 @@ kprobe:rootfs_mount
 kprobe:name_to_dev_t
 kprobe:bstat
 ```
-
-Note: Some RHCOS builds are missing the kernel-devel package. This leads to the following error:
-
-```
-sh-5.0# bpftrace -e 'tracepoint:syscalls:sys_exit_mkdir{printf("Hello world"); }'
-/bpftrace/include/clang_workarounds.h:14:10: fatal error: 'linux/types.h' file not found
-
-```
-
-I haven't found an easy fix for it, ideas are appreciated.
- 

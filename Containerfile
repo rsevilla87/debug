@@ -1,6 +1,6 @@
 FROM registry.fedoraproject.org/fedora-minimal:latest
 
-RUN microdnf install iproute \
+RUN microdnf install -y iproute \
 vim-minimal \
 procps-ng \
 net-tools \
